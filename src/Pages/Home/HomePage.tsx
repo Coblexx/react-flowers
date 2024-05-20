@@ -1,7 +1,16 @@
-import supabase from "../../utils/supabase.ts";
+import { getFlowers } from "../../utils/services/flowerAPI.ts";
+import { useEffect } from "react";
 
 export default function HomePage() {
-  console.log(supabase);
+  useEffect(() => {
+    async function fetchFlowers() {
+      const res = await getFlowers();
+
+      console.log(res);
+    }
+
+    fetchFlowers();
+  }, []);
 
   return (
     <div>
