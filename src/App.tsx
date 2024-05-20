@@ -10,6 +10,7 @@ import AppLayout from "./ui/AppLayout";
 import HomePage from "./Pages/Home/HomePage";
 import GalleryPage from "./Pages/Gallery/GalleryPage";
 import AddFlowerPage from "./Pages/AddFlower/AddFlowerPage";
+import LoginPage from "./Pages/Login/LoginPage";
 
 const router = createBrowserRouter([
   {
@@ -17,19 +18,23 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Navigate to="/home" />,
+        element: <Navigate to="/home" replace />,
       },
       {
         path: "/home",
         element: <HomePage />,
       },
       {
-        path: "/add-flower",
-        element: <AddFlowerPage />,
+        path: "/login",
+        element: <LoginPage />,
       },
       {
         path: "/gallery",
         element: <GalleryPage />,
+      },
+      {
+        path: "/add-flower",
+        element: <AddFlowerPage />,
       },
     ],
   },
