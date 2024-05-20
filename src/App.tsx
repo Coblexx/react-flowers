@@ -1,8 +1,12 @@
 // react
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 
 // pages
-import AppLayout from "./UI/AppLayout";
+import AppLayout from "./ui/AppLayout";
 import HomePage from "./Pages/Home/HomePage";
 import GalleryPage from "./Pages/Gallery/GalleryPage";
 import AddFlowerPage from "./Pages/AddFlower/AddFlowerPage";
@@ -13,6 +17,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
+        element: <Navigate to="/home" />,
+      },
+      {
+        path: "/home",
         element: <HomePage />,
       },
       {
