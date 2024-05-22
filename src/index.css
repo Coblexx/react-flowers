@@ -19,3 +19,8 @@ body {
   background-image: url("../public/bg-img.jpg");
   background-size: cover;
 }
+
+li > .active {
+  text-underline-offset: 4px;
+  text-decoration: underline;
+}
