@@ -12,13 +12,13 @@ export default function Searchbar() {
   }
 
   return (
-    <div className="flex justify-center h-12">
+    <div className="flex justify-center h-18 bg-slate-300">
       <input
         className="bg-slate-200 rounded-l-full py-2 px-4 my-2"
         type="text"
         onChange={handleChange}
         value={query}
-        placeholder="Search for flowers!"
+        placeholder="Search the gallery!"
       />
       <button
         className="flex bg-slate-200 w-fit items-center border-l-2 border-slate-400 border-solid rounded-r-full py-2 px-4 my-2 hover:bg-slate-300"

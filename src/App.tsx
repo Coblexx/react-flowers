@@ -5,12 +5,20 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 
+// react query
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 // pages
 import AppLayout from "./ui/AppLayout";
 import HomePage from "./Pages/Home/HomePage";
 import GalleryPage from "./Pages/Gallery/GalleryPage";
 import AddFlowerPage from "./Pages/AddFlower/AddFlowerPage";
 import LoginPage from "./Pages/Login/LoginPage";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+const queryClient = new QueryClient({
+  defaultOptions: {},
+});
 
 const router = createBrowserRouter([
   {
@@ -41,7 +49,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  );
 }
 
 export default App;

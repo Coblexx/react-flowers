@@ -22,7 +22,7 @@ export default function GalleryPage() {
     <div>
       <h1>Gallery</h1>
       <div>
-        <ul className="flex gap-4">
+        <ul className="flex gap-4 flex-wrap">
           {flowers ? (
             flowers.map((flower) => {
               return (
