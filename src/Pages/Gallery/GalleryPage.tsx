@@ -1,30 +1,26 @@
-import { getFlowers, Flower } from "../../utils/services/flowerAPI.ts";
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getFlowers } from "../../utils/services/flowerAPI.ts";
 
 export default function GalleryPage() {
-  const [flowers, setFlowers] = useState<Flower[]>([]);
+  const {
+    isLoading,
+    data: flowersData,
+    error,
+  } = useQuery({
+    queryKey: ["flowers"],
+    queryFn: getFlowers,
+  });
 
-  useEffect(() => {
-    async function fetchFlowers() {
-      try {
-        const res = await getFlowers();
-
-        setFlowers(res);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    fetchFlowers();
-  }, []);
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return console.error(error);
 
   return (
-    <div>
+    <>
       <h1>Gallery</h1>
       <div>
         <ul className="flex gap-4 flex-wrap">
-          {flowers ? (
-            flowers.map((flower) => {
+          {flowersData ? (
+            flowersData.map((flower) => {
               return (
                 <div key={flower.id}>
                   <h3>{flower.name}</h3>
@@ -37,6 +33,6 @@ export default function GalleryPage() {
           )}
         </ul>
       </div>
-    </div>
+    </>
   );
 }

@@ -12,7 +12,9 @@ export default function AppLayout() {
         <Sidebar />
         <div className="flex flex-col grow">
           <Searchbar />
-          <Outlet />
+          <main>
+            <Outlet />
+          </main>
           <Footer />
         </div>
       </div>
