@@ -1,7 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { getFlowers } from "../../utils/services/flowerAPI.ts";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { deleteFlower, getFlowers } from "../../utils/services/flowerAPI.ts";
 
 export default function GalleryPage() {
+  const queryClient = useQueryClient();
+
   const {
     isLoading,
     data: flowersData,
@@ -11,9 +13,17 @@ export default function GalleryPage() {
     queryFn: getFlowers,
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return console.error(error);
+  const { isPending: isDeleting, mutate } = useMutation({
+    mutationFn: (id: number) => deleteFlower(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["flowers"],
+      });
+    },
+  });
 
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Something went wrong! {`${error.message}`}</p>;
   return (
     <>
       <h1>Gallery</h1>
@@ -25,6 +35,13 @@ export default function GalleryPage() {
                 <div key={flower.id}>
                   <h3>{flower.name}</h3>
                   <p>{flower.desc}</p>
+
+                  <button
+                    disabled={isDeleting}
+                    onClick={() => mutate(flower.id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               );
             })

@@ -16,9 +16,7 @@ import AddFlowerPage from "./Pages/AddFlower/AddFlowerPage";
 import LoginPage from "./Pages/Login/LoginPage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient({
-  defaultOptions: {},
-});
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
