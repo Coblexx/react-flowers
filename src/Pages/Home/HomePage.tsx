@@ -1,6 +1,6 @@
 export default function HomePage() {
   return (
-    <div>
+    <div className="bg-image">
       <h1>HOMEPAGE</h1>
     </div>
   );

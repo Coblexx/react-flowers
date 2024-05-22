@@ -23,14 +23,18 @@ export default function GalleryPage() {
       <h1>Gallery</h1>
       <div>
         <ul className="flex gap-4">
-          {flowers.map((flower) => {
-            return (
-              <div key={flower.id}>
-                <h3>{flower.name}</h3>
-                <p>{flower.desc}</p>
-              </div>
-            );
-          })}
+          {flowers ? (
+            flowers.map((flower) => {
+              return (
+                <div key={flower.id}>
+                  <h3>{flower.name}</h3>
+                  <p>{flower.desc}</p>
+                </div>
+              );
+            })
+          ) : (
+            <p>No flowers found</p>
+          )}
         </ul>
       </div>
     </div>

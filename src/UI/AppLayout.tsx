@@ -9,7 +9,7 @@ export default function AppLayout() {
     <>
       <div className="flex min-h-screen">
         <Sidebar />
-        <div>
+        <div className="flex flex-col grow">
           <Outlet />
           <Footer />
         </div>
