@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 // components
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
+import Searchbar from "./Searchbar";
 
 export default function AppLayout() {
   return (
@@ -10,6 +11,7 @@ export default function AppLayout() {
       <div className="flex min-h-screen">
         <Sidebar />
         <div className="flex flex-col grow">
+          <Searchbar />
           <Outlet />
           <Footer />
         </div>
