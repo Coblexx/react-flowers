@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 export default function AppLayout() {
   return (
     <>
-      <div className="flex ">
+      <div className="flex min-h-screen">
         <Sidebar />
         <div>
           <Outlet />

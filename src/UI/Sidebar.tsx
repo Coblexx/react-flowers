@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <aside className="bg-slate-300">
+    <aside className="bg-slate-300 md:flex md:flex-col hidden min-w-60 text-2xl">
       <nav>
-        <ul>
+        <ul className="gap-4">
           <li>
             <NavLink to="/home">Home</NavLink>
           </li>
