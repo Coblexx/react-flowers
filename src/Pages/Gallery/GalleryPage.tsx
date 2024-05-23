@@ -1,5 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteFlower, getFlowers } from "../../utils/services/flowerAPI.ts";
+import { Flower } from "../../utils/services/flowerAPI.ts";
+import toast from "react-hot-toast";
+import { GoTrash } from "react-icons/go";
 
 export default function GalleryPage() {
   const queryClient = useQueryClient();
@@ -19,6 +22,11 @@ export default function GalleryPage() {
       queryClient.invalidateQueries({
         queryKey: ["flowers"],
       });
+
+      toast.success("Flower succesfully deleted!");
+    },
+    onError: () => {
+      toast.error("The flower could not have been deleted!");
     },
   });
 
@@ -33,18 +41,12 @@ export default function GalleryPage() {
           {flowersData ? (
             flowersData.map((flower) => {
               return (
-                <div key={flower.id}>
-                  <h3>{flower.name}</h3>
-                  <p>{flower.desc}</p>
-
-                  <button
-                    className="border-spacing-2 border-solid border-slate-500 rounded-full p-2"
-                    disabled={isDeleting}
-                    onClick={() => mutate(flower.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
+                <FlowerCard
+                  isDeleting={isDeleting}
+                  mutate={mutate}
+                  flower={flower}
+                  key={flower.id}
+                />
               );
             })
           ) : (
@@ -53,5 +55,36 @@ export default function GalleryPage() {
         </ul>
       </div>
     </>
+  );
+}
+
+type FlowerCardType = {
+  flower: Flower;
+  isDeleting: boolean;
+  mutate: (id: number) => void;
+};
+
+function FlowerCard({ flower, isDeleting, mutate }: FlowerCardType) {
+  const { id, name, image } = flower;
+
+  return (
+    <div className="m-3 border-[1px] rounded-lg border-solid border-slate-200 px-4 py-3 flex flex-col gap-2">
+      <h3 className="text-2xl w-full">{name}</h3>
+      <img
+        className="block w-60 h-60 overflow-hidden rounded-lg"
+        src={image}
+        alt={name}
+      />
+      <div className="flex justify-end">
+        <button
+          className="rounded-full bg-slate-100 h-fit px-4 w-fit flex items-center gap-2 hover:bg-slate-200 p-2"
+          disabled={isDeleting}
+          onClick={() => mutate(id)}
+        >
+          <GoTrash />
+          Delete
+        </button>
+      </div>
+    </div>
   );
 }

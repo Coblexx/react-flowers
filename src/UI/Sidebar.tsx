@@ -37,7 +37,7 @@ export default function Sidebar() {
 
 function NavItem({ to = "/", children }: NavItemType) {
   return (
-    <li className="p-2 hover:bg-slate-400 pointer">
+    <li className="p-2 hover:bg-slate-200 pointer">
       <NavLink className="w-full block" to={to}>
         <span className="flex items-center gap-2">{children}</span>
       </NavLink>
