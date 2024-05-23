@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { GoHome, GoImage, GoSignIn, GoUpload } from "react-icons/go";
+import { GoHome, GoImage, GoSignIn, GoStar, GoUpload } from "react-icons/go";
 import { Link, NavLink } from "react-router-dom";
 import Footer from "./Footer";
 
@@ -21,6 +21,10 @@ export default function Sidebar() {
           <NavItem to="/gallery">
             <GoImage />
             Gallery
+          </NavItem>
+          <NavItem to="/favorite">
+            <GoStar />
+            Favorite
           </NavItem>
           <NavItem to="/add-flower">
             <GoUpload />
