@@ -15,6 +15,7 @@ import GalleryPage from "./Pages/Gallery/GalleryPage";
 import AddFlowerPage from "./Pages/AddFlower/AddFlowerPage";
 import LoginPage from "./Pages/Login/LoginPage";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -50,7 +51,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
+      <Toaster position="top-center" gutter={8} />
     </QueryClientProvider>
   );
 }

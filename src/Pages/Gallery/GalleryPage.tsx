@@ -24,6 +24,7 @@ export default function GalleryPage() {
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Something went wrong! {`${error.message}`}</p>;
+
   return (
     <>
       <h1>Gallery</h1>
@@ -37,6 +38,7 @@ export default function GalleryPage() {
                   <p>{flower.desc}</p>
 
                   <button
+                    className="border-spacing-2 border-solid border-slate-500 rounded-full p-2"
                     disabled={isDeleting}
                     onClick={() => mutate(flower.id)}
                   >

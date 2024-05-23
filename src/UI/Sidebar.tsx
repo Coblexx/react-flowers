@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { GoHome, GoImage, GoSignIn, GoUpload } from "react-icons/go";
 import { Link, NavLink } from "react-router-dom";
 
 type NavItemType = {
@@ -8,14 +9,26 @@ type NavItemType = {
 
 export default function Sidebar() {
   return (
-    <aside className="bg-slate-300 md:flex md:flex-col hidden min-w-60 text-2xl">
+    <aside className="border-solid border-r-[1px] border-slate-200 md:flex md:flex-col hidden min-w-60 text-2xl">
       <nav>
         <Logo />
         <ul className="gap-6">
-          <NavItem to="/home">Home</NavItem>
-          <NavItem to="/gallery">Gallery</NavItem>
-          <NavItem to="/add-flower">Add Flower</NavItem>
-          <NavItem to="/login">Log In</NavItem>
+          <NavItem to="/home">
+            <GoHome />
+            Home
+          </NavItem>
+          <NavItem to="/gallery">
+            <GoImage />
+            Gallery
+          </NavItem>
+          <NavItem to="/add-flower">
+            <GoUpload />
+            Add Flower
+          </NavItem>
+          <NavItem to="/login">
+            <GoSignIn />
+            Log In
+          </NavItem>
         </ul>
       </nav>
     </aside>
@@ -25,8 +38,8 @@ export default function Sidebar() {
 function NavItem({ to = "/", children }: NavItemType) {
   return (
     <li className="p-2 hover:bg-slate-400 pointer">
-      <NavLink className={"w-full block"} to={to}>
-        {children}
+      <NavLink className="w-full block" to={to}>
+        <span className="flex items-center gap-2">{children}</span>
       </NavLink>
     </li>
   );
@@ -34,7 +47,10 @@ function NavItem({ to = "/", children }: NavItemType) {
 
 function Logo() {
   return (
-    <Link to="/" className="flex justify-center py-6 text-2xl">
+    <Link
+      to="/"
+      className="bg-slate-300 flex justify-center h-fit py-6 text-2xl"
+    >
       🌸ReactFlowers🌸
     </Link>
   );
