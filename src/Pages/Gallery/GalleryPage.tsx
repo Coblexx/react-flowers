@@ -2,7 +2,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteFlower, getFlowers } from "../../utils/services/flowerAPI.ts";
 import { Flower } from "../../utils/services/flowerAPI.ts";
 import toast from "react-hot-toast";
-import { GoTrash } from "react-icons/go";
+import { GoStar, GoStarFill, GoTrash } from "react-icons/go";
+import { useState } from "react";
 
 export default function GalleryPage() {
   const queryClient = useQueryClient();
@@ -65,11 +66,26 @@ type FlowerCardType = {
 };
 
 function FlowerCard({ flower, isDeleting, mutate }: FlowerCardType) {
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const { id, name, image } = flower;
 
   return (
     <div className="m-3 border-[1px] rounded-lg border-solid border-slate-200 px-4 py-3 flex flex-col gap-2">
-      <h3 className="text-2xl w-full">{name}</h3>
+      <div className="flex justify-between">
+        <h3 className="text-2xl w-full">{name}</h3>
+        <button
+          onClick={() => {
+            setIsFavorite((fav) => !fav);
+          }}
+        >
+          {isFavorite ? (
+            <GoStarFill size={25} color="yellow" />
+          ) : (
+            <GoStar size={25} color="gray" />
+          )}
+        </button>
+      </div>
       <img
         className="block w-60 h-60 overflow-hidden rounded-lg"
         src={image}

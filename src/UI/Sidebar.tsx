@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { GoHome, GoImage, GoSignIn, GoUpload } from "react-icons/go";
 import { Link, NavLink } from "react-router-dom";
+import Footer from "./Footer";
 
 type NavItemType = {
   to?: string;
@@ -9,8 +10,8 @@ type NavItemType = {
 
 export default function Sidebar() {
   return (
-    <aside className="border-solid border-r-[1px] border-slate-200 md:flex md:flex-col hidden min-w-60 text-2xl">
-      <nav>
+    <aside className="border-solid border-r-[1px] border-slate-200 md:flex md:flex-col h-full hidden min-w-60 text-2xl">
+      <nav className="h-full">
         <Logo />
         <ul className="gap-6">
           <NavItem to="/home">
@@ -31,6 +32,7 @@ export default function Sidebar() {
           </NavItem>
         </ul>
       </nav>
+      <Footer />
     </aside>
   );
 }
