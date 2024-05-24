@@ -40,22 +40,24 @@ export default function GalleryPage() {
   if (error) return <p>Something went wrong! {`${error.message}`}</p>;
 
   return (
-    <ul className="flex flex-wrap justify-center md:flex-wrap flex-col md:flex-row">
-      {flowersData ? (
-        flowersData.map((flower) => {
-          return (
-            <FlowerCard
-              isDeleting={isDeleting}
-              mutate={mutate}
-              flower={flower}
-              key={flower.id}
-            />
-          );
-        })
-      ) : (
-        <p>No flowers found</p>
-      )}
-    </ul>
+    <div className="flex justify-center">
+      <ul className="flex flex-col py-6 px-4 md:flex-row gap-4 flex-wrap">
+        {flowersData ? (
+          flowersData.map((flower) => {
+            return (
+              <FlowerCard
+                isDeleting={isDeleting}
+                mutate={mutate}
+                flower={flower}
+                key={flower.id}
+              />
+            );
+          })
+        ) : (
+          <p>No flowers found</p>
+        )}
+      </ul>
+    </div>
   );
 }
 
@@ -71,7 +73,7 @@ function FlowerCard({ flower, isDeleting, mutate }: FlowerCardType) {
   const { id, name, image } = flower;
 
   return (
-    <li className="border-[1px] w-fit my-4 rounded-lg border-solid border-slate-200 p-2 flex-shrink-0 flex flex-col gap-2">
+    <li className="border-[1px] w-fit rounded-lg border-solid border-slate-200 p-2 flex-shrink-0 flex flex-col gap-2">
       <div className="flex">
         <h3 className="text-2xl w-full">{name}</h3>
         <button
@@ -87,7 +89,7 @@ function FlowerCard({ flower, isDeleting, mutate }: FlowerCardType) {
         </button>
       </div>
       <img
-        className="block w-60 h-60 overflow-hidden rounded-lg"
+        className="block md:w-60 md:h-60 w-80 overflow-hidden rounded-lg"
         src={image}
         alt={name}
       />

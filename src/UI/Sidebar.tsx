@@ -41,7 +41,7 @@ function NavItem({ to = "/", children }: NavItemType) {
   return (
     <li className="p-2 hover:bg-slate-200 pointer">
       <NavLink className="w-full block" to={to}>
-        <span className="flex items-center gap-2">{children}</span>
+        <span className="flex items-center gap-6">{children}</span>
       </NavLink>
     </li>
   );
@@ -51,9 +51,9 @@ function Logo() {
   return (
     <Link
       to="/"
-      className="bg-slate-300 items-center flex justify-center h-16 text-2xl"
+      className="bg-slate-300 items-center flex justify-center font-bold h-16 text-2xl"
     >
-      🌸ReactFlowers🌸
+      ReactFlowers
     </Link>
   );
 }
