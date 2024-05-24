@@ -12,16 +12,16 @@ export default function Searchbar() {
   }
 
   return (
-    <div className="flex justify-center h-18 bg-slate-300">
+    <div className="flex items-center justify-center h-16 bg-slate-300 flex-shrink-0 flex-grow-0">
       <input
-        className="bg-slate-200 rounded-l-full py-2 px-4 my-2"
+        className="bg-slate-200 h-10 rounded-l-full py-2 px-4 my-2"
         type="text"
         onChange={handleChange}
         value={query}
         placeholder="Search the gallery!"
       />
       <button
-        className="flex bg-slate-200 w-fit items-center border-l-2 border-slate-400 border-solid rounded-r-full py-2 px-4 my-2 hover:bg-slate-300"
+        className="flex bg-slate-200 h-10 w-fit items-center border-l-2 border-slate-400 border-solid rounded-r-full py-2 px-4 my-2 hover:bg-slate-300"
         type="submit"
         onSubmit={(e) => handleSubmit(e)}
       >

@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { GoHome, GoImage, GoSignIn, GoStar, GoUpload } from "react-icons/go";
+import { GoHome, GoImage, GoStar, GoUpload } from "react-icons/go";
 import { Link, NavLink } from "react-router-dom";
 import Footer from "./Footer";
 
@@ -10,7 +10,7 @@ type NavItemType = {
 
 export default function Sidebar() {
   return (
-    <aside className="border-solid border-r-[1px] border-slate-200 md:flex md:flex-col h-full hidden min-w-60 text-2xl">
+    <aside className="border-solid border-r-[1px] border-slate-200 md:flex md:flex-col flex-shrink-0 flex-grow-0 h-full hidden min-w-60 text-2xl">
       <nav className="h-full">
         <Logo />
         <ul className="gap-6">
@@ -29,10 +29,6 @@ export default function Sidebar() {
           <NavItem to="/add-flower">
             <GoUpload />
             Add Flower
-          </NavItem>
-          <NavItem to="/login">
-            <GoSignIn />
-            Log In
           </NavItem>
         </ul>
       </nav>
@@ -55,7 +51,7 @@ function Logo() {
   return (
     <Link
       to="/"
-      className="bg-slate-300 flex justify-center h-fit py-6 text-2xl"
+      className="bg-slate-300 items-center flex justify-center h-16 text-2xl"
     >
       🌸ReactFlowers🌸
     </Link>

@@ -17,7 +17,6 @@ import AppLayout from "./ui/AppLayout";
 import HomePage from "./Pages/Home/HomePage";
 import GalleryPage from "./Pages/Gallery/GalleryPage";
 import AddFlowerPage from "./Pages/AddFlower/AddFlowerPage";
-import LoginPage from "./Pages/Login/LoginPage";
 import Favorite from "./Pages/Favorite/Favorite";
 
 const queryClient = new QueryClient();
@@ -33,10 +32,6 @@ const router = createBrowserRouter([
       {
         path: "/home",
         element: <HomePage />,
-      },
-      {
-        path: "/login",
-        element: <LoginPage />,
       },
       {
         path: "/gallery",

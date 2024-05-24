@@ -1,9 +1,14 @@
+// react
+import { useState } from "react";
+
+// react query
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+// utils
+import { GoStar, GoStarFill, GoTrash } from "react-icons/go";
 import { deleteFlower, getFlowers } from "../../utils/services/flowerAPI.ts";
 import { Flower } from "../../utils/services/flowerAPI.ts";
 import toast from "react-hot-toast";
-import { GoStar, GoStarFill, GoTrash } from "react-icons/go";
-import { useState } from "react";
 
 export default function GalleryPage() {
   const queryClient = useQueryClient();
@@ -35,27 +40,22 @@ export default function GalleryPage() {
   if (error) return <p>Something went wrong! {`${error.message}`}</p>;
 
   return (
-    <>
-      <h1>Gallery</h1>
-      <div>
-        <ul className="flex gap-4 flex-wrap">
-          {flowersData ? (
-            flowersData.map((flower) => {
-              return (
-                <FlowerCard
-                  isDeleting={isDeleting}
-                  mutate={mutate}
-                  flower={flower}
-                  key={flower.id}
-                />
-              );
-            })
-          ) : (
-            <p>No flowers found</p>
-          )}
-        </ul>
-      </div>
-    </>
+    <ul className="flex flex-wrap justify-center md:flex-wrap flex-col md:flex-row">
+      {flowersData ? (
+        flowersData.map((flower) => {
+          return (
+            <FlowerCard
+              isDeleting={isDeleting}
+              mutate={mutate}
+              flower={flower}
+              key={flower.id}
+            />
+          );
+        })
+      ) : (
+        <p>No flowers found</p>
+      )}
+    </ul>
   );
 }
 
@@ -71,8 +71,8 @@ function FlowerCard({ flower, isDeleting, mutate }: FlowerCardType) {
   const { id, name, image } = flower;
 
   return (
-    <div className="m-3 border-[1px] rounded-lg border-solid border-slate-200 px-4 py-3 flex flex-col gap-2">
-      <div className="flex justify-between">
+    <li className="border-[1px] w-fit my-4 rounded-lg border-solid border-slate-200 p-2 flex-shrink-0 flex flex-col gap-2">
+      <div className="flex">
         <h3 className="text-2xl w-full">{name}</h3>
         <button
           onClick={() => {
@@ -93,7 +93,7 @@ function FlowerCard({ flower, isDeleting, mutate }: FlowerCardType) {
       />
       <div className="flex justify-end">
         <button
-          className="rounded-full bg-slate-100 h-fit px-4 w-fit flex items-center gap-2 hover:bg-slate-200 p-2"
+          className="rounded-full h-fit px-4 w-fit flex items-center gap-2 hover:bg-slate-200 p-2 border-solid border-2 border-slate-200"
           disabled={isDeleting}
           onClick={() => mutate(id)}
         >
@@ -101,6 +101,6 @@ function FlowerCard({ flower, isDeleting, mutate }: FlowerCardType) {
           Delete
         </button>
       </div>
-    </div>
+    </li>
   );
 }
