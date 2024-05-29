@@ -6,11 +6,13 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <Button onClick={() => navigate("/gallery")}>
-        Go to gallery
-        <GoArrowRight />
-      </Button>
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="">
+        <Button onClick={() => navigate("/gallery")}>
+          Go to gallery
+          <GoArrowRight />
+        </Button>
+      </div>
     </div>
   );
 }

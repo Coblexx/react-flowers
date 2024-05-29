@@ -39,7 +39,7 @@ export default function Sidebar() {
 
 function NavItem({ to = "/", children }: NavItemType) {
   return (
-    <li className="p-2 hover:bg-slate-200 pointer">
+    <li className="p-2 hover:bg-neutral-300 pointer">
       <NavLink className="w-full block" to={to}>
         <span className="flex items-center gap-6">{children}</span>
       </NavLink>
@@ -51,7 +51,7 @@ function Logo() {
   return (
     <Link
       to="/"
-      className="bg-slate-300 items-center flex justify-center font-bold h-16 text-2xl"
+      className="bg-neutral-200 items-center flex justify-center font-bold h-16 text-2xl"
     >
       ReactFlowers
     </Link>
