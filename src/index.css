@@ -14,6 +14,7 @@
 body {
   font-family: "Roboto Flex", sans-serif;
 }
+
 .bg-image {
   background-image: url("./bg-img.jpg");
   background-size: cover;
