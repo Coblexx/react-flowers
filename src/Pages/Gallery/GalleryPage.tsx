@@ -13,7 +13,7 @@ export default function GalleryPage() {
   const queryClient = useQueryClient();
 
   const {
-    isLoading,
+    isFetching,
     data: flowersData,
     error,
   } = useQuery({
@@ -35,26 +35,23 @@ export default function GalleryPage() {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Something went wrong! {`${error.message}`}</p>;
 
   return (
     <div className="flex">
       <ul className="flex flex-col py-6 px-4 md:flex-row gap-4 flex-wrap">
-        {flowersData ? (
-          flowersData.map((flower) => {
-            return (
-              <FlowerCard
-                isDeleting={isDeleting}
-                mutate={mutate}
-                flower={flower}
-                key={flower.id}
-              />
-            );
-          })
-        ) : (
-          <p>No flowers found</p>
-        )}
+        {flowersData
+          ? flowersData.map((flower) => {
+              return (
+                <FlowerCard
+                  isDeleting={isDeleting}
+                  mutate={mutate}
+                  flower={flower}
+                  key={flower.id}
+                />
+              );
+            })
+          : (isFetching && <p>Loading...</p>) || <p>No flowers found</p>}
       </ul>
     </div>
   );
