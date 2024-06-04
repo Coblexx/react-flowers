@@ -1,4 +1,4 @@
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 
 export type Flower = {
   id: number;
@@ -19,4 +19,47 @@ export async function deleteFlower(id: number) {
   const { error } = await supabase.from("flowers").delete().eq("id", id);
 
   if (error) console.error(error.message);
+}
+
+export async function createFlower(newFlowerData) {
+  const { flowerName, flowerDesc, flowerPrimaryColor, flowerImg } =
+    newFlowerData;
+
+  const imageFile = flowerImg[0];
+  const imageName = `${Date.now()}---${imageFile.name?.replaceAll("/", "")}`;
+  const imagePath = `${supabaseUrl}/storage/v1/object/public/image/${imageName}`;
+
+  const { data, error: createError } = await supabase
+    .from("flowers")
+    .insert([
+      {
+        name: flowerName,
+        desc: flowerDesc,
+        primary_color: flowerPrimaryColor,
+        image: imagePath,
+      },
+    ])
+    .select();
+
+  if (createError)
+    throw new Error("Something went wrong while creating your flower!");
+
+  // upload image to bucket
+  const { error: storageError } = await supabase.storage
+    .from("image")
+    .upload(imageName, imageFile, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+
+  if (storageError) {
+    const { error: deleteError } = await supabase
+      .from("flowers")
+      .delete()
+      .eq("id", data[0].id);
+
+    if (deleteError) console.error(deleteError.message);
+
+    throw new Error("Something went wrong with your image ulpoad!");
+  }
 }

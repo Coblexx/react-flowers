@@ -30,7 +30,7 @@ export default function FlowerCard({
           }}
         >
           {isFavorite ? (
-            <GoStarFill size={25} color="yellow" />
+            <GoStarFill size={25} color="#ffdd00" />
           ) : (
             <GoStar size={25} color="gray" />
           )}
