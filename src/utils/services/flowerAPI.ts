@@ -81,6 +81,6 @@ export async function createFlower(newFlowerData) {
 
     if (deleteError) console.error(deleteError.message);
 
-    throw new Error("Something went wrong with your image ulpoad!");
+    throw new Error("Something went wrong with your image upload!");
   }
 }
