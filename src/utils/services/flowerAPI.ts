@@ -16,30 +16,45 @@ export async function getFlowers() {
 }
 
 export async function deleteFlower(id: number) {
-  const { data: flowerData } = await supabase
+  const { data: flowerData, error: selectError } = await supabase
     .from("flowers")
     .select()
-    .eq("id", id);
+    .eq("id", id)
+    .single();
 
-  const flower = flowerData?.[0];
-  const { image } = flower;
-  const lastSlashId = image.lastIndexOf("/");
-  const flowerImageName = image.slice(lastSlashId);
+  if (selectError) {
+    console.error(selectError.message);
+    throw new Error(selectError.message);
+  }
+
+  if (!flowerData) {
+    console.error("No data for the flower with the provided ID!");
+    throw new Error("No data for the flower with the provided ID!");
+  }
+
+  const { image } = flowerData;
+  const lastSlashId: number = image.lastIndexOf("/") + 1;
+  const flowerImageName: string = image.slice(lastSlashId);
 
   const { error: deleteError } = await supabase
     .from("flowers")
     .delete()
     .eq("id", id);
 
-  if (deleteError) console.error(deleteError.message);
+  if (deleteError) {
+    console.error(deleteError.message);
+    throw new Error(deleteError.message);
+  }
 
   // delete image from storage if flower is deleted
   const { error: deleteStorageError } = await supabase.storage
     .from("image")
-    .remove([flowerImageName]);
+    .remove([`${flowerImageName}`]);
 
-  if (deleteStorageError)
-    throw new Error("Flower image could not have been deleted");
+  if (deleteStorageError) {
+    console.error("Flower image could not have been deleted!");
+    throw new Error("Flower image could not have been deleted!");
+  }
 }
 
 export async function createFlower(newFlowerData) {
@@ -47,7 +62,9 @@ export async function createFlower(newFlowerData) {
     newFlowerData;
 
   const imageFile = flowerImg[0];
-  const imageName = `${Date.now()}---${imageFile.name?.replaceAll("/", "")}`;
+  const imageName = `${Math.floor(
+    Date.now() / 1000
+  )}---${imageFile.name?.replaceAll("/", "")}`;
   const imagePath = `${supabaseUrl}/storage/v1/object/public/image/${imageName}`;
 
   const { data, error: createError } = await supabase
