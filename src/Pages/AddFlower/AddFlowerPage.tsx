@@ -27,7 +27,6 @@ export default function AddFlowerPage() {
   });
 
   function onSubmit(data) {
-    console.log(data);
     mutate(data);
   }
 

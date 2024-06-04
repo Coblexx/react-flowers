@@ -12,13 +12,34 @@ export async function getFlowers() {
   const { data, error } = await supabase.from("flowers").select("*");
 
   if (error) console.error(error.message);
-  return data as Flower[];
+  return data;
 }
 
 export async function deleteFlower(id: number) {
-  const { error } = await supabase.from("flowers").delete().eq("id", id);
+  const { data: flowerData } = await supabase
+    .from("flowers")
+    .select()
+    .eq("id", id);
 
-  if (error) console.error(error.message);
+  const flower = flowerData?.[0];
+  const { image } = flower;
+  const lastSlashId = image.lastIndexOf("/");
+  const flowerImageName = image.slice(lastSlashId);
+
+  const { error: deleteError } = await supabase
+    .from("flowers")
+    .delete()
+    .eq("id", id);
+
+  if (deleteError) console.error(deleteError.message);
+
+  // delete image from storage if flower is deleted
+  const { error: deleteStorageError } = await supabase.storage
+    .from("image")
+    .remove([flowerImageName]);
+
+  if (deleteStorageError)
+    throw new Error("Flower image could not have been deleted");
 }
 
 export async function createFlower(newFlowerData) {
